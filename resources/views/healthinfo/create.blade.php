@@ -4,7 +4,7 @@
 
 @section('content')
 
-{{-- <form action="{{ route('patients.store') }}" method="POST"> --}}
+<form action="{{ route('healthinfo.store') }}" method="POST">
 @csrf
 
 <!-- HEADER -->
@@ -54,7 +54,7 @@
 
         <div class="col-md-6">
             <label>Hospital Number</label>
-            <input type="text" name="hospital_no" class="form-control" placeholder="Auto generate if empty">
+            <input type="text" name="hospital_no" class="form-control" placeholder="Auto generate if empty" readonly>
         </div>
     </div>
 </div>
@@ -68,12 +68,14 @@
     <div class="row">
         <div class="col-md-4">
             <label>Surname *</label>
-            <input type="text" name="surname" class="form-control">
+            <input type="text" name="surname" class="form-control" id="surname">
+            <x-form-error name='surname' /> 
         </div>
 
         <div class="col-md-4">
             <label>Firstname *</label>
-            <input type="text" name="firstname" class="form-control">
+            <input type="text" name="firstname" class="form-control" id="firstname">
+            <x-form-error name='firstname' />
         </div>
 
         <div class="col-md-4">
@@ -82,12 +84,14 @@
         </div>
 
         <div class="col-md-4">
-            <label>Sex *</label>
-            <select name="sex" class="form-control">
-                <option>Male</option>
-                <option>Female</option>
-                <option>NNS</option>
+            <label>Gender *</label>
+            <select name="gender_id" class="form-control" id="gender_id">
+                <option value=""></option>
+                @foreach($genders as $gender)
+                    <option value="{{ $gender->id }}">{{ $gender->name }}</option>
+                @endforeach
             </select>
+            <x-form-error name='gender_id' />
         </div>
 
         <div class="col-md-4">
@@ -97,31 +101,39 @@
 
         <div class="col-md-4">
             <label>GSM No *</label>
-            <input type="text" name="phone" class="form-control">
+            <input type="text" name="phonenumber" class="form-control">
+            <x-form-error name="phonenumber" />
         </div>
 
         <div class="col-md-4">
             <label>Email</label>
             <input type="email" name="email" class="form-control">
+            <x-form-error name='email' />
         </div>
 
         <div class="col-md-4">
             <label>State</label>
-            <input type="text" name="state" class="form-control">
+            <select name="state_id" id="state_id" class="form-control select2">
+                <option value="">Select State</option>
+                @foreach($states as $state)
+                    <option value="{{ $state->id }}">{{ $state->name }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="col-md-4">
             <label>LGA</label>
-            <input type="text" name="lga" class="form-control">
+            <select name="lga_id" id="lga_id" class="form-control select2">
+                <option value="">Select LGA</option>
+            </select>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-12">
             <label>Address</label>
-            <input type="text" name="address" class="form-control">
+            <textarea name="address" id="" class="form-control"></textarea>
         </div>
     </div>
 </div>
-
 <hr>
 
 <!-- NEXT OF KIN -->
@@ -133,27 +145,27 @@
     <div class="row">
         <div class="col-md-4">
             <label>Full Name</label>
-            <input type="text" name="kin_name" class="form-control">
+            <input type="text" name="nok_fullname" class="form-control">
         </div>
 
         <div class="col-md-4">
             <label>Relationship</label>
-            <select name="relationship" class="form-control">
-                <option>Father</option>
-                <option>Mother</option>
-                <option>Brother</option>
-                <option>Sister</option>
+            <select name="relationship_id" class="form-control">
+                <option value=""></option>
+                @foreach ($rships as $rship)
+                    <option value="{{ $rship->id }}">{{ $rship->name }}</option>
+                @endforeach
             </select>
         </div>
 
         <div class="col-md-4">
             <label>Phone</label>
-            <input type="text" name="kin_phone" class="form-control">
+            <input type="text" name="nok_phonenumber" class="form-control">
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-12">
             <label>Address</label>
-            <input type="text" name="kin_address" class="form-control">
+            <textarea name="nok_address" id="" class="form-control"></textarea>
         </div>
     </div>
 </div>

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\LgaSeeder;
+use Database\Seeders\RelationshipSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,7 +25,9 @@ class DatabaseSeeder extends Seeder
             GenderSeeder::class,
             StateSeeder::class,
             CategorySeeder::class,      
-            LgaSeeder::class,      
+            LgaSeeder::class,     
+            UsersSeeder::class, 
+            RelationshipSeeder::class
         ]);
     }
 }

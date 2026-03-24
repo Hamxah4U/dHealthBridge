@@ -34,9 +34,9 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
                 <a class="collapse-item" href="{{ route('patients.create') }}">Add Patient</a>
-                {{-- <a class="collapse-item" href="{{ route('patients.index') }}">View Patients</a>
+                <a class="collapse-item" href="{{ route('patients.index') }}">View Patients</a>
                 <a class="collapse-item" href="{{ route('appointments.index') }}">Manage Appointments</a>
-                <a class="collapse-item" href="{{ route('records.index') }}">Health Records</a> --}}
+                {{-- <a class="collapse-item" href="{{ route('records.index') }}">Health Records</a> --}}
             </div>
         </div>
     </li>
