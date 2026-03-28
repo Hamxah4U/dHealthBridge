@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Gender;
 use App\Models\Healthinfo;
 use App\Models\Lga;
@@ -9,6 +10,7 @@ use App\Models\Relationship;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class HealthinfoController extends Controller
 {
@@ -17,7 +19,8 @@ class HealthinfoController extends Controller
         $genders = Gender::all();
         $rships = Relationship::all();
         $states = State::all();
-        return view('healthinfo.create', compact('genders', 'rships', 'states'));
+        $categories = Category::all();
+        return view('healthinfo.create', compact('genders', 'rships', 'states', 'categories'));
     }
 
     public function store(Request $request)
@@ -35,6 +38,7 @@ class HealthinfoController extends Controller
             'email' => 'nullable | string | email',
             'othername' => 'nullable | string',
             'hospital_no' => 'required',
+            'category_id' => 'required|exists:categories,id',
 
             // next of kin
             'nok_fullname' => 'nullable | string',
@@ -77,11 +81,42 @@ class HealthinfoController extends Controller
 
     public function edit($id)
     {
-        return view('healthinfo.edit');
+        $patient = Healthinfo::findOrFail($id);
+        $states = State::all();
+        $rships = Relationship::all();
+        $genders = Gender::all();
+        $categories = Category::all();
+        return view('healthinfo.edit', compact(['patient', 'states', 'rships', 'genders','categories']));
     }
     public function update(Request $request, $id)
     {
-        // This method will handle the update of a specific health information record
+        $patientinfo = Healthinfo::findOrFail($id);
+        $attribute = request()->validate([
+            'surname' => 'required|string|max:255',
+            'firstname' => 'required|string|max:255',
+            'gender_id' => 'required|exists:genders,id',
+            'dob' => 'nullable|date',
+            'phonenumber' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+            'state_id' => 'nullable|string|max:255',
+            'lga_id' => 'nullable|string|max:255',
+            'email' => [ 'nullable', 'string', 'email', 'max:255', Rule::unique('healthinfos')->ignore($patientinfo->id), ],
+            
+            'othername' => 'nullable | string',
+            'category_id' => 'required|exists:categories,id',
+
+            // next of kin
+            'nok_fullname' => 'nullable | string',
+            'relationship_id' => 'nullable | string',
+            'nok_phonenumber' => 'nullable | string',
+            'nok_address' => 'nullable | string'
+        ],
+        [
+            'email.unique' => 'This email is already registered with another patient.',
+        ]); 
+
+        $patientinfo->update($attribute);
+        return redirect()->back()->with('info', 'Record updated successfully!');
     }
     public function destroy($id)
     {
@@ -96,3 +131,5 @@ class HealthinfoController extends Controller
     }
     
 }
+
+

@@ -24,7 +24,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get-lgas/{state_id}', 'getLgas');
         Route::get('/patients', 'index')->name('patients.index');
         Route::get('edit-patient/{id}', 'edit')->name('patients.edit');
-        Route::put('update-patient/{id}', 'update')->name('patients.update');
+        Route::PATCH('update-patient/{id}', 'update')->name('patients.update');
         Route::delete('delete-patient/{id}', 'destroy')->name('patients.destroy');
     });
 
