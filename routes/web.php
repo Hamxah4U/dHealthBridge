@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HealthinfoController;
 use App\Http\Controllers\SessionController;
@@ -28,8 +30,14 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('delete-patient/{id}', 'destroy')->name('patients.destroy');
     });
 
-    Route::controller(Appointment::class)->group(function(){
+    Route::controller(AppointmentController::class)->group(function(){
         Route::get('/appointments', 'index')->name('appointments.index');
+        Route::get('/appointments/create', 'create')->name('appointments.create');
+        Route::post('/appointments', 'store')->name('appointments.store');
+        Route::get('/appointments/{id}', 'show')->name('appointments.show');
+        Route::get('/appointments/{id}/edit', 'edit')->name('appointments.edit');
+        Route::put('/appointments/{id}', 'update')->name('appointments.update');
+        Route::delete('/appointments/{id}', 'destroy')->name('appointments.destroy');
     });
 
     // APIs

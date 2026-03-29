@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 use Database\Seeders\CategorySeeder;
-use Illuminate\Database\Seeder;
+use Database\Seeders\ClinicSeeder;
 use Database\Seeders\LgaSeeder;
 use Database\Seeders\RelationshipSeeder;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,7 +28,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,      
             LgaSeeder::class,     
             UsersSeeder::class, 
-            RelationshipSeeder::class
+            RelationshipSeeder::class,
+            ClinicSeeder::class
         ]);
     }
 }

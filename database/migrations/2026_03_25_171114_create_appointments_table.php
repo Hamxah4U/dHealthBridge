@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Healthinfo::class)->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('doctor_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('clinic_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('reason')->nullable();
+            $table->date('appointment_date');
+            $table->time('appointment_time');
+            $table->enum('status', ['pending', 'processing', 'done', 'cancelled'])->default('pending');
             $table->foreignIdFor(User::class)->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('doctor')->nullable()->constrained()->onDelete('cascade');
-            $table->date('cdate');
-            $table->time('ctime');
-            $table->enum('status', ['pending', 'processing', 'done']);
             $table->timestamps();
         });
     }
