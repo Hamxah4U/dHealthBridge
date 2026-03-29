@@ -37,7 +37,7 @@
                 <a class="collapse-item" href="{{ route('appointments.index') }}">New Appointments</a>
                 <a class="collapse-item" href="{{ route('appointments.today') }}">Today’s Appointments</a>
                 <a class="collapse-item" href="{{ route('appointments.all') }}">View all Appointments</a>
-                {{-- <a class="collapse-item" href="{{ route('history.index') }}">Health History</a> --}}
+                <a class="collapse-item" href="#">Health History</a>
             </div>
         </div>
     </li>
