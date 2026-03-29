@@ -18,4 +18,9 @@ class Healthinfo extends Model
     {
         return $this->belongsTo(Gender::class);
     }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'healthinfo_id');
+    }
 }

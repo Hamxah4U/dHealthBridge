@@ -4,7 +4,6 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HealthinfoController;
 use App\Http\Controllers\SessionController;
-use App\Models\Appointment;
 use App\Models\Healthinfo;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +12,7 @@ Route::view('/', 'users.index');
 // user login
 Route::controller(SessionController::class)->group(function() {
     Route::post('/login', 'store');
+    Route::get('/login', 'userLogin')->name('login');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -31,6 +31,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::controller(AppointmentController::class)->group(function(){
+        Route::get('/appointments/today', 'today')->name('appointments.today');
+        Route::get('/appointments/all', 'all')->name('appointments.all');
         Route::get('/appointments', 'index')->name('appointments.index');
         Route::get('/appointments/create', 'create')->name('appointments.create');
         Route::post('/appointments', 'store')->name('appointments.store');

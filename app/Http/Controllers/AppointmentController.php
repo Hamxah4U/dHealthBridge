@@ -61,4 +61,17 @@ class AppointmentController extends Controller
     {
         // Delete the appointment
     }
+
+    public function today()
+    {
+        $today = date('Y-m-d');
+        $appointments = Appointment::whereDate('appointment_date', $today)->with('patient')->get();
+        return view('appointment.today', compact('appointments'));
+    }
+
+    public function all()
+    {
+        $appointments = Appointment::with('patient')->orderBy('appointment_date', 'desc')->orderBy('appointment_time', 'desc')->get();
+        return view('appointment.all', compact('appointments'));
+    }
 }

@@ -33,4 +33,8 @@ class SessionController extends Controller
         Auth::logout();
         return redirect("/");
     }  
+
+    public function userLogin(){
+        return view("users.index");
+    }
 }
